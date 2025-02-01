@@ -1,0 +1,109 @@
+.resume-manager {
+    padding: 20px;
+}
+
+.resume-content {
+    background: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.resume-form {
+    margin-bottom: 40px;
+}
+
+.current-resume {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.resume-preview {
+    background: var(--bg-primary);
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.resume-preview p {
+    margin: 10px 0;
+    color: var(--text-secondary);
+}
+
+.btn-view {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.btn-view:hover {
+    background-color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.btn-submit {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-submit:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+    .resume-manager {
+        padding: 10px;
+    }
+
+    .resume-content {
+        padding: 20px;
+    }
+
+    .resume-preview {
+        padding: 15px;
+    }
+
+    .form-group input[type="file"] {
+        width: calc(100% - 16px);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .btn-submit,
+    .btn-view {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
