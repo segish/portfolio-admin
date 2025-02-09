@@ -17,20 +17,30 @@ const AddProject = () => {
     const [loading, setLoading] = useState(false);
     const API_BASE_URL = config.API_BASE_URL;
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProject({ ...project, image: reader.result });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        const formData = new FormData();
-        formData.append('title', project.title);
-        formData.append('description', project.description);
-        formData.append('image', project.image);
-        formData.append('keyFeatures', JSON.stringify(project.keyFeatures));
-        formData.append('githubLink', project.githubLink);
-        formData.append('demoLink', project.demoLink);
-
         try {
-            await axios.post(`${API_BASE_URL}/api/projects`, formData);
+            await axios.post(`${API_BASE_URL}/api/projects`, {
+                title: project.title,
+                description: project.description,
+                image: project.image,
+                keyFeatures: JSON.stringify(project.keyFeatures),
+                githubLink: project.githubLink,
+                demoLink: project.demoLink
+            });
             navigate('/admin/projects');
         } catch (error) {
             console.error('Error adding project:', error);
@@ -70,9 +80,17 @@ const AddProject = () => {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setProject({ ...project, image: e.target.files[0] })}
+                        onChange={handleImageChange}
                         required
                     />
+                    {project.image && (
+                        <img
+                            src={project.image}
+                            alt="Preview"
+                            className="image-preview"
+                            style={{ maxWidth: '200px', marginTop: '10px' }}
+                        />
+                    )}
                 </div>
 
                 <div className="form-group">

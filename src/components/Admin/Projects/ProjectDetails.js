@@ -33,7 +33,7 @@ const ProjectDetails = () => {
             </div>
             <div className="project-info">
                 <img
-                    src={`${API_BASE_URL}/${project.image}`}
+                    src={project.image}
                     alt={project.title}
                     className="project-image"
                 />
@@ -61,8 +61,8 @@ const ProjectDetails = () => {
                     <h3>Key Features</h3>
                     <ul>
                         {project.keyFeatures.map((feature, index) => (
-                            <div style={{display:'flex',alignItems:'center', gap:'10px'}}>
-                                <i className="fas fa-check" style={{color:'blue'}}></i><li key={index}>{feature}</li>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <i className="fas fa-check" style={{ color: 'blue' }}></i><li key={index}>{feature}</li>
                             </div>
                         ))}
                     </ul>

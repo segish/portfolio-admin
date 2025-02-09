@@ -55,7 +55,7 @@ const ProjectsList = () => {
                             <tr key={project._id}>
                                 <td>
                                     <img
-                                        src={`${API_BASE_URL}/${project.image}`}
+                                        src={project.image}
                                         alt={project.title}
                                         className="project-thumbnail"
                                     />

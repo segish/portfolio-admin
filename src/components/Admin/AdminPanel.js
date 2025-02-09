@@ -11,7 +11,7 @@ const AdminPanel = () => {
         keyFeatures: ['']
     });
     const [resumeFile, setResumeFile] = useState(null);
-    const API_BASE_URL = 'http://localhost:5000';
+    const API_BASE_URL = 'https://portfolio-backend-h8bm.onrender.com';
 
     useEffect(() => {
         fetchProjects();
@@ -19,7 +19,7 @@ const AdminPanel = () => {
 
     const fetchProjects = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/projects');
+            const response = await axios.get('https://portfolio-backend-h8bm.onrender.com/api/projects');
             setProjects(response.data);
         } catch (error) {
             console.error('Error fetching projects:', error);
@@ -35,7 +35,7 @@ const AdminPanel = () => {
         formData.append('keyFeatures', JSON.stringify(newProject.keyFeatures));
 
         try {
-            await axios.post('http://localhost:5000/api/projects', formData);
+            await axios.post('https://portfolio-backend-h8bm.onrender.com/api/projects', formData);
             fetchProjects();
             setNewProject({ title: '', description: '', image: null, keyFeatures: [''] });
         } catch (error) {
@@ -49,7 +49,7 @@ const AdminPanel = () => {
         formData.append('resume', resumeFile);
 
         try {
-            await axios.post('http://localhost:5000/api/resume', formData);
+            await axios.post('https://portfolio-backend-h8bm.onrender.com/api/resume', formData);
             setResumeFile(null);
             alert('Resume uploaded successfully!');
         } catch (error) {
@@ -59,7 +59,7 @@ const AdminPanel = () => {
 
     const handleDeleteProject = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/projects/${id}`);
+            await axios.delete(`https://portfolio-backend-h8bm.onrender.com/api/projects/${id}`);
             fetchProjects();
         } catch (error) {
             console.error('Error deleting project:', error);
@@ -143,7 +143,7 @@ const AdminPanel = () => {
                     <div key={project._id} className="project-item">
                         <h3>{project.title}</h3>
                         <img
-                            src={`${API_BASE_URL}/${project.image}`}
+                            src={project.image}
                             alt={project.title}
                             style={{ maxWidth: '200px' }}
                         />

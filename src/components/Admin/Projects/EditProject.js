@@ -41,22 +41,30 @@ const EditProject = () => {
         }
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProject({ ...project, image: reader.result });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        const formData = new FormData();
-        formData.append('title', project.title);
-        formData.append('description', project.description);
-        formData.append('keyFeatures', JSON.stringify(project.keyFeatures));
-        formData.append('githubLink', project.githubLink);
-        formData.append('demoLink', project.demoLink);
-        if (project.image) {
-            formData.append('image', project.image);
-        }
-
         try {
-            await axios.put(`${API_BASE_URL}/api/projects/${id}`, formData);
+            await axios.put(`${API_BASE_URL}/api/projects/${id}`, {
+                title: project.title,
+                description: project.description,
+                image: project.image,
+                keyFeatures: JSON.stringify(project.keyFeatures),
+                githubLink: project.githubLink,
+                demoLink: project.demoLink
+            });
             navigate('/admin/projects');
         } catch (error) {
             console.error('Error updating project:', error);
@@ -93,7 +101,7 @@ const EditProject = () => {
                 <div className="form-group">
                     <label>Current Image</label>
                     <img
-                        src={`${API_BASE_URL}/${currentImage}`}
+                        src={currentImage || project.image}
                         alt="Current"
                         className="edit-project-image"
                     />
@@ -101,8 +109,16 @@ const EditProject = () => {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => setProject({ ...project, image: e.target.files[0] })}
+                        onChange={handleImageChange}
                     />
+                    {project.image && project.image !== currentImage && (
+                        <img
+                            src={project.image}
+                            alt="Preview"
+                            className="image-preview"
+                            style={{ maxWidth: '200px', marginTop: '10px' }}
+                        />
+                    )}
                 </div>
 
                 <div className="form-group">
